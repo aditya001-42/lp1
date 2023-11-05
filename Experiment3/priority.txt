@@ -1,0 +1,194 @@
+aditya@ubuntu:~$ javac priority.java
+aditya@ubuntu:~$ java priority
+Enter the number of processes: 3
+
+Enter burst time and priorities: 
+
+Process[1]: 5 3  
+Process[2]: 8 1 
+Process[3]: 3 2
+
+
+Process 	 Burst Time 	 Wait Time 	 Turn Around Time 	 Priority
+   1		   5		     0		     5		     3
+   3		   3		     5		     8		     2
+   2		   8		     8		     16		     1
+
+Average Wait Time: 4
+Average Turn Around Time: 9
+
+
+
+
+Certainly! The provided Java code is an implementation of a Priority Scheduling algorithm for process scheduling. Let's break down the code and explain its functionality:
+
+### Explanation of the Code:
+
+#### 1. **Import Statement:**
+   ```java
+   import java.util.Scanner;
+   ```
+
+   This line imports the `Scanner` class from the `java.util` package, which allows user input to be read from the terminal.
+
+#### 2. **Class Definition:**
+   ```java
+   public class TestClass {
+   ```
+
+   The code defines a class named `TestClass`.
+
+#### 3. **Main Method:**
+   ```java
+   public static void main(String args[]) {
+   ```
+
+   The `main` method is the entry point of the program, where execution begins.
+
+#### 4. **Variable Declarations:**
+   ```java
+   int x, n, p[], pp[], bt[], w[], t[], awt, atat, i;
+   ```
+
+   - `n`: Number of processes.
+   - `p[]`: Array to store process IDs.
+   - `pp[]`: Array to store process priorities.
+   - `bt[]`: Array to store burst times of processes.
+   - `w[]`: Array to store wait times of processes.
+   - `t[]`: Array to store turnaround times of processes.
+   - `awt`: Average waiting time.
+   - `atat`: Average turnaround time.
+   - `i`: Loop variable.
+
+#### 5. **User Input:**
+   ```java
+   Scanner s = new Scanner(System.in);
+   ```
+
+   Creates a `Scanner` object to read input from the user.
+
+   ```java
+   System.out.print("Enter the number of processes: ");
+   n = s.nextInt();
+   ```
+
+   Asks the user to input the number of processes.
+
+#### 6. **Input Loop:**
+   ```java
+   for (i = 0; i < n; i++) {
+       System.out.print("\nProcess[" + (i + 1) + "]:");
+       bt[i] = s.nextInt();
+       pp[i] = s.nextInt();
+       p[i] = i + 1;
+   }
+   ```
+
+   - The loop allows the user to input burst times and priorities for each process.
+
+#### 7. **Sorting Based on Priority:**
+   The code sorts the processes based on their priorities in descending order.
+
+#### 8. **Calculations and Output:**
+   ```java
+   w[0] = 0;
+   awt = 0;
+   t[0] = bt[0];
+   atat = t[0];
+
+   for (i = 1; i < n; i++) {
+       w[i] = t[i - 1];
+       awt += w[i];
+       t[i] = w[i] + bt[i];
+       atat += t[i];
+   }
+   ```
+
+   - Calculates waiting times and turnaround times for processes.
+   - `awt` stores the sum of waiting times, and `atat` stores the sum of turnaround times.
+
+#### 9. **Display Output:**
+   ```java
+   System.out.print("\n\nProcess \t Burst Time \t Wait Time \t Turn Around Time   Priority \n");
+   for (i = 0; i < n; i++)
+       System.out.print("\n   " + p[i] + "\t\t   " + bt[i] + "\t\t     " + w[i] + "\t\t     " + t[i] + "\t\t     " + pp[i] + "\n");
+
+   awt /= n;
+   atat /= n;
+   System.out.print("\n Average Wait Time : " + awt);
+   System.out.print("\n Average Turn Around Time : " + atat);
+   ```
+
+   - Displays the process details, including process ID, burst time, wait time, turnaround time, and priority.
+   - Calculates and displays the average waiting time (`awt`) and average turnaround time (`atat`).
+
+### Explanation of Priority Scheduling Algorithm:
+
+Priority scheduling is a non-preemptive scheduling algorithm where each process is assigned a priority. The process with the highest priority is scheduled first. In this code, processes are sorted based on their priorities in descending order, and then waiting times and turnaround times are calculated. Finally, average waiting time and average turnaround time are displayed.
+
+**Note:** The code provided assumes that higher numerical priority values represent higher priorities. If it's the other way around (lower numerical values indicating higher priorities), you would need to modify the sorting logic accordingly.
+
+Please feel free to reach out again if you have any more specific questions or if there's anything else I can assist you with!
+
+
+Certainly! Here are some theory questions related to the Priority Scheduling algorithm along with their answers:
+
+### Theory Questions:
+
+#### Q1: What is Priority Scheduling in the context of CPU scheduling algorithms?
+
+**Answer:** Priority Scheduling is a non-preemptive scheduling algorithm where each process is assigned a priority. The process with the highest priority is scheduled first. If two processes have the same priority, they are scheduled based on other criteria like arrival time or round-robin fashion.
+
+---
+
+#### Q2: What are the advantages and disadvantages of Priority Scheduling?
+
+**Answer:**
+- **Advantages:**
+  - Allows processes with higher priority to be executed first, ensuring that important tasks are completed promptly.
+  - Can be used to implement different scheduling policies based on priority, catering to various requirements.
+
+- **Disadvantages:**
+  - May lead to starvation if lower priority processes never get a chance to execute.
+  - Priority inversion issues can arise, where a lower priority process holds a resource needed by a higher priority process, causing delays.
+
+---
+
+#### Q3: How does the Priority Scheduling algorithm work?
+
+**Answer:** In Priority Scheduling, each process is assigned a priority value. The process with the highest priority is selected for execution first. If two processes have the same priority, other scheduling criteria, like arrival time, can be used to break the tie. The process scheduler selects the process with the highest priority from the ready queue and assigns the CPU to that process.
+
+---
+
+#### Q4: Explain the implementation of Priority Scheduling using an example.
+
+**Answer:** Consider three processes with burst times and priorities: Process A (5, 2), Process B (3, 1), and Process C (7, 3). Lower priority numbers indicate higher priorities. After sorting by priority in descending order, the order of execution would be B (3, 1), A (5, 2), and C (7, 3).
+
+---
+
+#### Q5: How can priority inversion be resolved in Priority Scheduling?
+
+**Answer:** Priority inversion occurs when a lower priority process holds a resource required by a higher priority process. One solution to priority inversion is the Priority Inheritance Protocol. In this protocol, if a lower priority process is holding a resource needed by a higher priority process, the lower priority process temporarily inherits the priority of the higher priority process, allowing it to finish quickly and release the resource.
+
+---
+
+#### Q6: What is starvation in the context of Priority Scheduling, and how can it be mitigated?
+
+**Answer:** Starvation occurs when a process is unable to proceed because it is waiting indefinitely for a resource or never gets selected for execution due to low priority. To mitigate starvation, aging can be used, where the priority of a process increases over time. Aging ensures that even processes with lower initial priority eventually get a chance to execute.
+
+---
+
+#### Q7: Compare Priority Scheduling with other CPU scheduling algorithms like Round Robin and First-Come, First-Served (FCFS).
+
+**Answer:**
+- **Priority Scheduling vs. Round Robin:**
+  - Priority Scheduling is non-preemptive and schedules tasks based on priority.
+  - Round Robin is preemptive and schedules tasks in a circular queue, allowing each process to execute for a fixed time slice.
+  
+- **Priority Scheduling vs. FCFS:**
+  - Priority Scheduling prioritizes processes based on their priority values.
+  - FCFS schedules processes in the order they arrive, without considering priority.
+
+---
+
+I hope these questions and answers help you understand the Priority Scheduling algorithm better. If you have any more specific questions or need further clarification, feel free to ask!
