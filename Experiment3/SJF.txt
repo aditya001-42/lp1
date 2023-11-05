@@ -1,0 +1,90 @@
+aditya@ubuntu:~$ javac TestClass1.java
+aditya@ubuntu:~$ java TestClass1
+Enter number of process: 4   
+
+Enter Burst time:
+
+Process[1]: 6
+
+Process[2]: 8
+
+Process[3]: 3
+
+Process[4]: 7
+
+Process	 Burst Time 	Waiting Time	Turnaround Time
+
+ p3		 3		 0		 3
+
+ p1		 6		 3		 9
+
+ p4		 7		 9		 16
+
+ p2		 8		 16		 24
+
+
+Average Waiting Time: 7.0
+Average Turnaround Time: 13.0
+
+
+
+
+Certainly! Here's an explanation of the code and a sample output for better understanding.
+
+Explanation of Code:
+Input:
+
+The user is prompted to enter the number of processes (n).
+For each process, the user enters the burst time.
+Sorting:
+
+The code sorts the processes based on their burst times in ascending order. This sorting is done to apply the First Come First Serve (FCFS) scheduling algorithm.
+Calculating Waiting Time:
+
+The waiting time for the first process is 0.
+For subsequent processes, the waiting time is the sum of burst times of all previous processes.
+Calculating Turnaround Time:
+
+Turnaround time for each process is calculated as the sum of its burst time and waiting time.
+Average Waiting Time and Average Turnaround Time:
+
+The code calculates the average waiting time by summing up all waiting times and dividing by the number of processes (n).
+Similarly, the average turnaround time is calculated.
+Output:
+
+The code displays the process number, burst time, waiting time, and turnaround time for each process.
+It also shows the average waiting time and average turnaround time for all processes.
+
+
+
+
+Certainly! Here are some theory questions related to the given code along with their answers:
+
+### Theory Questions:
+
+1. **Question:** What is the purpose of the waiting time in a scheduling algorithm?
+   - **Answer:** Waiting time represents the total time a process spends waiting in the ready queue before it gets executed. Lower waiting time indicates better performance of a scheduling algorithm.
+
+2. **Question:** How is the waiting time calculated for each process in the given code?
+   - **Answer:** The waiting time for each process (except the first one) is calculated as the sum of burst times of all previous processes. It is computed using the loop: `waiting_time[i] += burst_time[j]` for `j` from 0 to `i - 1`.
+
+3. **Question:** Why is the sorting step necessary in this scheduling algorithm?
+   - **Answer:** Sorting the processes based on burst times is necessary to implement the First Come First Serve (FCFS) scheduling algorithm. FCFS schedules processes in the order they arrive, and sorting ensures that the processes are processed in ascending order of burst times.
+
+4. **Question:** How is the average waiting time calculated in the given code?
+   - **Answer:** The average waiting time is calculated by summing up all waiting times and dividing the total by the number of processes (`n`). In the given code: `wait_avg = (float)total / n`.
+
+5. **Question:** What is the significance of the turnaround time in scheduling algorithms?
+   - **Answer:** Turnaround time represents the total time taken by a process to complete its execution, including both waiting time and execution time. It indicates the overall performance and responsiveness of the scheduling algorithm.
+
+6. **Question:** Explain the purpose of the `tat` array in the code.
+   - **Answer:** The `tat` array stores the turnaround time for each process. Turnaround time is calculated as `tat[i] = burst_time[i] + waiting_time[i]`. This array holds the turnaround times of all processes for further analysis and output display.
+
+7. **Question:** How does the code ensure the correct order of processes after sorting?
+   - **Answer:** The code maintains a separate `process` array that holds the process numbers. During sorting, the positions of processes in the `process` array are swapped along with their burst times, ensuring that the order of processes is preserved after sorting.
+
+8. **Question:** Why is type casting used in the calculation of average waiting time?
+   - **Answer:** Type casting is used to ensure that the division operation results in a floating-point number. In Java, dividing two integers produces an integer result, so type casting to `float` (`(float)total`) is necessary to get the accurate average waiting time as a floating-point number.
+
+These questions cover key concepts related to scheduling algorithms, waiting time, turnaround time, and the implementation details of the given code.
+

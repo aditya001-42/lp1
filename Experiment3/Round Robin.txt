@@ -1,0 +1,78 @@
+aditya@ubuntu:~$ javac TestClass2.java
+aditya@ubuntu:~$ java TestClass2
+Enter number of processes(MAX 10): 4
+Enter burst time:
+P[1]: 8
+P[2]: 5
+P[3]: 3
+P[4]: 2
+
+Enter quantum: 2
+Gantt Chart: 0 | P[1] | 2 | P[2] | 4 | P[3] | 6 | P[4] | 8 | P[1] | 10 | P[2] | 12 | P[3] | 13 | P[1] | 15 | P[2] | 16 | P[1] | 18
+Average Waiting Time: 9.25
+
+
+
+Explanation of the code:
+
+Input:
+
+The user is prompted to enter the number of processes (num) and the burst time for each process. The burst times are stored in the btime array.
+Round Robin Scheduling:
+
+The program uses a while loop to simulate the round robin scheduling. Inside the loop, it iterates through the processes and executes them in a round-robin manner.
+If a process's remaining burst time is greater than the time quantum, it executes for the time quantum, and the remaining burst time is updated.
+If a process's remaining burst time is less than or equal to the time quantum, it executes for the remaining burst time, and the process is considered completed.
+Output:
+
+The program prints the timeline of process execution, indicating when each process is scheduled to run.
+In the sample output, the processes P[1], P[2], P[3], and P[4] execute in a round-robin fashion. The time quantum is 2 units, so each process runs for 2 units of time before the next process is picked.
+
+
+
+Certainly! Below are some theoretical questions related to the Round Robin scheduling algorithm, along with their answers:
+
+### 1. **Question: What is Round Robin Scheduling?**
+   
+   **Answer:** Round Robin Scheduling is a pre-emptive scheduling algorithm where each process is assigned a fixed time unit or time slice (also known as quantum). When a process's time quantum expires, it is moved to the back of the ready queue, and the CPU scheduler picks the next process in the queue to execute.
+
+---
+
+### 2. **Question: What is the purpose of the time quantum in Round Robin Scheduling?**
+   
+   **Answer:** The time quantum in Round Robin Scheduling determines the maximum amount of time a process can run before being interrupted and moved to the back of the queue. It ensures fair execution of processes and prevents a single long-running process from monopolizing the CPU.
+
+---
+
+### 3. **Question: Explain the concept of Context Switching in Round Robin Scheduling.**
+   
+   **Answer:** Context Switching in Round Robin Scheduling refers to the process of saving and restoring the state of a running process when it is pre-empted to allow another process to run. Context switching involves storing the current process's program counter, register values, and other necessary information, and then loading the corresponding values for the next process to be executed.
+
+---
+
+### 4. **Question: What is the effect of a smaller time quantum in Round Robin Scheduling?**
+   
+   **Answer:** A smaller time quantum results in more frequent context switches. While this ensures fairness and responsiveness, it also introduces higher overhead due to the increased number of context switches. Smaller time quantum values can lead to inefficient CPU utilization for processes with short burst times.
+
+---
+
+### 5. **Question: How does Round Robin Scheduling handle processes with burst times longer than the time quantum?**
+   
+   **Answer:** If a process's burst time is longer than the time quantum, the process is allowed to run for the time quantum. After the time quantum expires, the process is pre-empted and placed at the end of the ready queue. The scheduler then picks the next process in the queue to execute. The remaining portion of the long process will be scheduled in subsequent rounds when it reaches the front of the queue again.
+
+---
+
+### 6. **Question: What is the average waiting time in Round Robin Scheduling?**
+   
+   **Answer:** The average waiting time in Round Robin Scheduling represents the average amount of time a process spends waiting in the ready queue before being executed. It is calculated by summing up the waiting times of all processes and dividing the total by the number of processes.
+
+---
+
+### 7. **Question: Explain the trade-off between time quantum and context switching overhead in Round Robin Scheduling.**
+   
+   **Answer:** There exists a trade-off between the time quantum and context switching overhead in Round Robin Scheduling. A smaller time quantum leads to more frequent context switches, reducing the waiting time for processes but increasing the overhead. Conversely, a larger time quantum reduces the number of context switches, decreasing overhead but potentially increasing the waiting time for processes.
+
+---
+
+I hope these questions and answers help you understand the theoretical aspects of Round Robin Scheduling!
+

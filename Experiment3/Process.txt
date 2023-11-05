@@ -1,0 +1,156 @@
+Enter the number of processes:
+3
+Enter Arrival time and bursts: 
+0 5
+1 3
+3 6
+Process 0:
+Turnaround   Completion   Waiting
+5            5            0
+Process 1:
+Turnaround   Completion   Waiting
+7            8            5
+Process 2:
+Turnaround   Completion   Waiting
+10           14           8
+
+
+Certainly! Let me explain the provided Java code step by step:
+
+1. **Class Definition:**
+   ```java
+   import java.util.Scanner;
+   ```
+   The code starts with importing the `Scanner` class, which is used to take input from the user.
+
+2. **Process Class:**
+   ```java
+   class Process {
+       int wait;
+       int submission;
+       int bursts;
+       int turnAround;
+       int completionTime = 0;
+
+       Process(int sub, int bur) {
+           submission = sub;
+           bursts = bur;
+       }
+   }
+   ```
+   Here, a `Process` class is defined to represent each process. It has attributes for waiting time (`wait`), submission time (`submission`), burst time (`bursts`), turnaround time (`turnAround`), and completion time (`completionTime`). The class has a constructor that initializes the submission and burst times for each process.
+
+3. **Processmain Class:**
+   ```java
+   class Processmain {
+       public static void main(String[] args) {
+           // Code for processing input and calculating completion, turnaround, and waiting times
+       }
+   }
+   ```
+   The `Processmain` class contains the `main` method where the program execution starts.
+
+4. **User Input:**
+   ```java
+   int wait = 0, x = 0;
+   Scanner s = new Scanner(System.in);
+   System.out.println("Enter the number of processes:");
+   int n = s.nextInt();
+   Process[] myProcess = new Process[n];
+
+   System.out.println("Enter Arrival time and bursts:");
+   for (int i = 0; i < n; i++) {
+       int sub = s.nextInt();
+       int bur = s.nextInt();
+       myProcess[i] = new Process(sub, bur);
+   }
+   ```
+   The program prompts the user to enter the number of processes and their arrival times and burst times. It creates an array of `Process` objects (`myProcess`) based on the user input.
+
+5. **Calculations and Output:**
+   ```java
+   for (int i = 0; i < myProcess.length; i++) {
+       x = x + myProcess[i].bursts;
+       myProcess[i].completionTime = x;
+       myProcess[i].turnAround = myProcess[i].completionTime - myProcess[i].submission;
+       myProcess[i].wait = myProcess[i].turnAround - myProcess[i].bursts;
+       System.out.println("Process " + i + ":");
+       System.out.println("Turnaround\tCompletion\tWaiting");
+       System.out.println(myProcess[i].turnAround + "\t\t\t" + myProcess[i].completionTime + "\t\t\t" + myProcess[i].wait);
+   }
+   ```
+   In this part, the program calculates the completion time, turnaround time, and waiting time for each process. It then prints these values for each process.
+
+6. **Explanation:**
+   - The program takes input for the number of processes, their arrival times, and burst times.
+   - It calculates the completion time as the cumulative sum of burst times.
+   - Turnaround time is calculated as the difference between completion time and submission time.
+   - Waiting time is calculated as the difference between turnaround time and burst time.
+   - The program then prints these values for each process.
+
+In summary, this program simulates a non-preemptive scheduling algorithm for a set of processes and calculates and displays the turnaround time, completion time, and waiting time for each process.
+
+
+Certainly! Here are the theoretical questions related to process scheduling algorithms along with their answers:
+
+1. **Question: Explain the difference between preemptive and non-preemptive scheduling algorithms. Provide examples of each.**
+
+   **Answer:**
+   - **Preemptive Scheduling:** In preemptive scheduling, the operating system can interrupt a currently running process to start or resume another, higher-priority process. Examples include Round Robin and Shortest Remaining Time First (SRTF).
+   - **Non-Preemptive Scheduling:** In non-preemptive scheduling, once a process starts its execution, it continues until it terminates or enters the waiting state voluntarily. Examples include First-Come-First-Serve (FCFS) and Shortest Job Next (SJN) or Shortest Job First (SJF).
+
+2. **Question: What is a scheduling algorithm? Why is it essential for an operating system?**
+
+   **Answer:** A scheduling algorithm is a set of rules that determine the order in which processes are executed by the CPU. It is essential for an operating system because it helps in optimizing the utilization of the CPU, ensures fairness, and reduces waiting times, thereby improving the overall system performance.
+
+3. **Question: Describe the First-Come-First-Serve (FCFS) scheduling algorithm. What are its advantages and disadvantages?**
+
+   **Answer:**
+   - **FCFS Scheduling:** FCFS schedules processes in the order they arrive. The process that arrives first is the one that gets executed first.
+   - **Advantages:** Simple to understand and implement.
+   - **Disadvantages:** May lead to a phenomenon known as the "convoy effect," where shorter processes get stuck behind longer ones, causing higher average waiting times.
+
+4. **Question: Explain Shortest Job Next (SJN) scheduling algorithm. How does it minimize waiting time?**
+
+   **Answer:** SJN, also known as Shortest Job First (SJF) or Shortest Job Next (SJN), selects the process with the smallest execution time next. By choosing the shortest job, SJN minimizes waiting time and improves overall system efficiency.
+
+5. **Question: What is Round Robin scheduling? How does it handle time-sharing systems? What is the significance of the time quantum in Round Robin scheduling?**
+
+   **Answer:**
+   - **Round Robin Scheduling:** Round Robin assigns a fixed time unit per process, known as the time quantum. When a process's time quantum expires, it's moved to the back of the queue, allowing the next process to run.
+   - **Time-Sharing Systems:** Round Robin is suitable for time-sharing systems where multiple users share the CPU.
+   - **Significance of Time Quantum:** The time quantum determines how long a process can run before it's preempted. Smaller time quantum values lead to more context switches, while larger values can lead to higher response times for interactive tasks.
+
+6. **Question: Describe Priority Scheduling. What are the different types of priority scheduling (e.g., preemptive and non-preemptive)? How are priorities assigned to processes?**
+
+   **Answer:** Priority Scheduling assigns priorities to processes, and the process with the highest priority is executed first. There are two types:
+   - **Preemptive Priority Scheduling:** Allows the operating system to preempt a currently running process if a higher-priority process becomes available.
+   - **Non-Preemptive Priority Scheduling:** Once a process starts executing, it continues until it completes, even if a higher-priority process arrives.
+   Priorities can be assigned based on various factors such as process type, deadline, or system importance.
+
+7. **Question: Explain Multilevel Queue Scheduling. How does it handle processes with different priority levels?**
+
+   **Answer:** Multilevel Queue Scheduling organizes processes into multiple queues, each with its scheduling algorithm. Processes are assigned to different queues based on priority or process characteristics. Each queue may have its scheduling algorithm, allowing the system to handle processes with varying priorities efficiently.
+
+8. **Question: What is Multilevel Feedback Queue Scheduling? How does it adapt to the behavior of processes over time?**
+
+   **Answer:** Multilevel Feedback Queue Scheduling employs multiple queues with varying priorities. A process that uses too much CPU time is moved to a lower-priority queue, while processes that wait too long may be moved to higher-priority queues. This approach adapts to the behavior of processes over time, ensuring fairness and preventing starvation.
+
+9. **Question: What is the difference between CPU-bound and I/O-bound processes? How do different scheduling algorithms cater to these types of processes?**
+
+   **Answer:** 
+   - **CPU-Bound Processes:** CPU-bound processes require extensive CPU resources and minimal I/O operations.
+   - **I/O-Bound Processes:** I/O-bound processes perform frequent I/O operations and require less CPU time.
+   Scheduling algorithms like Round Robin are suitable for CPU-bound processes as they provide fair CPU sharing. I/O-bound processes benefit from algorithms like Shortest Job Next (SJN) or Priority Scheduling, allowing quick execution of short I/O-bound tasks.
+
+10. **Question: Explain the concept of starvation in the context of process scheduling. How can it be mitigated?**
+
+    **Answer:** Starvation occurs when a process is indefinitely delayed or postponed from executing due to higher-priority processes continuously entering the system. It can be mitigated by implementing aging, where the priority of a waiting process increases over time, ensuring that every process eventually gets executed.
+
+11. **Question: Describe the concept of a process control block (PCB). What information does it store about a process?**
+
+    **Answer:** A Process Control Block (PCB) is a data structure that contains essential information about a process. It includes details like process state, program counter, CPU registers, memory pointers, scheduling information, and I/O status. The operating system uses the PCB to manage and control the process effectively.
+
+These questions and answers provide a comprehensive understanding of process scheduling algorithms in operating systems. Studying and practicing these concepts will enhance your knowledge and preparation for interviews or exams.
+
+
