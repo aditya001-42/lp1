@@ -1,0 +1,77 @@
+aditya@ubuntu:~$ javac A3/MacroProcessor_PassOne.java
+aditya@ubuntu:~$ java A3.MacroProcessor_PassOne
+============= Pass 1 Output ==============
+START   100
+READ    N1
+READ    N2
+INCR    N1,N2,REG=CREG
+DECR    NA,N2
+STOP
+N1      DS 1
+N2      DS 1
+END
+============= MNT ==============
+INCR 0
+DECR 5
+============= MDT ==============
+0  INCR     &X,&Y,&REG=AREG
+1  MOVER #3,#1
+2  ADD #3,#2
+3  MOVEM #3,#1
+4  MEND
+5  DECR     &A,&B,&REG=BREG
+6  MOVER #3,#1
+7  SUB #3,#2
+8  MOVEM #3,#1
+9  MEND
+
+
+
+1. pass1() Method:
+This method processes the input assembly code line by line and constructs the MNT, MDT, and ALA. It also writes the processed information into output files.
+
+2. Helper Methods:
+processArgumentList(String argList): Processes argument list of a macro and stores it in ALA.
+processArguments(String argList): Replaces arguments in the macro definition with their respective indices.
+tokenizeString(String str, String separator): Tokenizes a string based on the specified separator.
+
+3. File Input/Output:
+The code reads input from "input.txt" and writes processed data into "output_pass1.txt", "MNT.txt", and "MDT.txt".
+
+4. Output Printing:
+The program prints processed information like MNT and MDT to the console.
+
+In summary, this code reads an input assembly code, processes macro definitions, constructs Macro Name Table (MNT), Macro Definition Table (MDT), and Argument List Array (ALA), and writes this processed information to output files. It is a crucial part of a macro processor that prepares data structures for the second pass where actual macro expansion takes place.
+
+
+Certainly! Here are some potential theory questions that could be asked in a viva based on the provided Java code for a Macro Processor Pass-One. Along with each question, I have provided a concise answer.
+
+### 1. **Question: What is the purpose of a Macro Processor in assembly language programming?**
+**Answer:** A macro processor is a program that performs macro substitution, which replaces user-defined macros in the source code with their corresponding expansions. Macros allow developers to define shorthand notations for frequently used code sequences, enhancing code readability and maintainability.
+
+### 2. **Question: Explain the role of Macro Processor Pass-One.**
+**Answer:** The Macro Processor Pass-One is responsible for processing macro definitions in the source code. It constructs data structures such as Macro Name Table (MNT), Macro Definition Table (MDT), and Argument List Array (ALA). It also replaces macro arguments with indices, preparing the necessary information for macro expansion in Pass-Two.
+
+### 3. **Question: What are MNT, MDT, and ALA in the context of a Macro Processor?**
+**Answer:** 
+- **MNT (Macro Name Table):** It is a data structure that stores the names of macros and their corresponding indices in the MDT.
+- **MDT (Macro Definition Table):** It is a data structure that holds the expanded definitions of macros.
+- **ALA (Argument List Array):** It is a data structure that stores macro arguments and their corresponding indices in the macro definition.
+
+### 4. **Question: How are macro arguments processed in the given code?**
+**Answer:** In the provided code, macro arguments are processed in the `processArguments(String argList)` method. It replaces arguments in the macro definition with their respective indices from the ALA, effectively converting arguments into indexed notation.
+
+### 5. **Question: Explain the significance of MNT and MDT in macro expansion.**
+**Answer:** 
+- **MNT (Macro Name Table):** MNT stores the names of macros and their indices in the MDT. During macro expansion, the MNT helps in identifying the starting index of a macro's definition in the MDT.
+- **MDT (Macro Definition Table):** MDT holds the expanded definitions of macros. It is used during macro expansion to replace macro calls in the source code with their corresponding expanded code stored in the MDT.
+
+### 6. **Question: How does the code handle nested macros (macros within macros)?**
+**Answer:** The provided code does not handle nested macros. Nested macros are not considered in this implementation.
+
+### 7. **Question: What is the purpose of ALA in macro processing?**
+**Answer:** ALA (Argument List Array) is used to store macro arguments and their corresponding indices. During macro processing, ALA helps in replacing macro arguments in the macro definition with their respective indices. This step is essential for preparing the MDT for the second pass, where actual macro expansion occurs.
+
+### 8. **Question: How does the code determine the end of a macro definition?**
+**Answer:** The code identifies the end of a macro definition when it encounters the "MEND" keyword. When this keyword is found, the macro definition is complete, and the processed content is added to the MDT (Macro Definition Table).
+
