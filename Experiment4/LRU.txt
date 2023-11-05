@@ -1,0 +1,116 @@
+aditya@ubuntu:~$ javac LRU.java
+aditya@ubuntu:~$ java LRU
+Enter the number of pages: 6
+Enter the page reference string: 1 2 1 3 4 1
+
+Enter the number of frames: 3
+
+1 0 0 
+1 2 0 
+1 2 0 
+1 2 3 
+1 4 3 
+1 4 3 
+Page Fault: 4
+
+
+Certainly! The provided Java code implements the Least Recently Used (LRU) page replacement algorithm. Below is the explanation of the code:
+
+### LRU Page Replacement Algorithm:
+
+In the LRU (Least Recently Used) page replacement algorithm, the page that has not been used for the longest period of time is the one chosen for replacement. The basic idea is to keep track of the order in which pages are accessed and replace the page that is accessed least recently.
+
+### Code Explanation:
+
+1. **Import Statements:**
+   - `import java.util.Scanner;` imports the Scanner class for taking user input.
+
+2. **Class Declaration:**
+   - The class `LRU` is declared to encapsulate the LRU page replacement logic.
+
+3. **Main Method (`public static void main(String[] args) { ... }`):**
+   - The program starts execution from the `main` method.
+  
+4. **Variable Declarations:**
+   - `n`: Represents the number of pages.
+   - `recent`: Keeps track of the recent usage timestamp.
+   - `pageFault`: Counts the number of page faults.
+   - `pageString[]`: An array to store the input page reference string.
+   - `nFrames`: Represents the number of frames available in memory.
+   - `frames[]`: An array representing frames in memory.
+   - `counter[]`: An array to store timestamps of page access.
+
+5. **User Input:**
+   - The user is prompted to enter the number of pages, the page reference string, and the number of frames available in memory.
+
+6. **Page Replacement Logic:**
+   - For each page in the `pageString[]` array, the code checks if it is present in the frames:
+     - If the page is found in the frames, its timestamp in `counter[]` is updated to the recent timestamp.
+     - If the page is not found and there is an empty frame, the page is placed in an empty frame, and the `counter[]` value is updated.
+     - If there is no empty frame, the code finds the frame with the minimum timestamp (least recently used) and replaces that page with the current page. The `counter[]` value of the replaced page is updated.
+
+7. **Printing Frames:**
+   - After processing each page, the current state of frames is printed.
+
+8. **Page Fault Count:**
+   - The number of page faults (occurrences when a page is replaced) is counted and displayed after processing all the pages.
+
+### Sample Output (for illustration purposes):
+
+```
+Enter the number of pages: 12
+Enter the page reference string: 1 2 3 4 1 2 5 1 2 3 4 5
+Enter the number of frames: 3
+
+Frames: 1 0 0 
+Frames: 1 2 0 
+Frames: 1 2 3 
+Frames: 4 2 3 
+Frames: 4 1 3 
+Frames: 4 1 2 
+Frames: 5 1 2 
+Frames: 5 1 3 
+Frames: 5 2 3 
+Frames: 4 2 3 
+Frames: 4 5 3 
+Frames: 4 5 1 
+
+Page Fault: 9
+```
+
+In this example, the page reference string has 12 pages. The LRU algorithm processes the pages and displays the state of frames after each page access. The total number of page faults is 9 in this case.
+
+
+Certainly! Here are some theory questions related to the Least Recently Used (LRU) page replacement algorithm, along with their answers:
+
+**1. What is the Least Recently Used (LRU) page replacement algorithm?**
+
+**Answer:** The Least Recently Used (LRU) page replacement algorithm is a page replacement strategy that selects the page in memory that has not been accessed for the longest period of time for replacement when a page fault occurs.
+
+**2. How does the LRU algorithm work?**
+
+**Answer:** The LRU algorithm maintains a record of the order in which pages are accessed. When a page needs to be replaced, the algorithm selects the page that was accessed least recently for replacement.
+
+**3. What data structure is commonly used to implement the LRU page replacement algorithm?**
+
+**Answer:** A commonly used data structure to implement the LRU page replacement algorithm is a **queue** or a **doubly linked list**. The queue is used to maintain the order of page accesses, with the most recently accessed page at the front and the least recently accessed page at the rear.
+
+**4. How does the LRU algorithm handle a page hit (when the page is already in memory)?**
+
+**Answer:** When a page hit occurs (meaning the page is already in memory), the LRU algorithm updates the access timestamp of the corresponding page to indicate that it was accessed most recently. No page replacement occurs in the case of a page hit.
+
+**5. What is the main drawback of the LRU algorithm?**
+
+**Answer:** The main drawback of the LRU algorithm is its **implementation complexity**. Maintaining an ordered list of accessed pages or timestamps for each page access can be resource-intensive, especially in large-scale systems.
+
+**6. Can you explain the Belady's Anomaly phenomenon in the context of the LRU algorithm?**
+
+**Answer:** **Belady's Anomaly** is a phenomenon in page replacement algorithms where increasing the number of available frames can lead to more page faults. In some cases, adding more frames to the system using the LRU algorithm can paradoxically increase the number of page faults, defying the common intuition that more memory should lead to fewer page faults. This anomaly does not occur with algorithms like FIFO.
+
+**7. How can the LRU algorithm be implemented efficiently?**
+
+**Answer:** The LRU algorithm can be implemented efficiently using a combination of data structures like **hash tables** and **linked lists**. A hash table can be used to quickly determine whether a page is in memory, and a linked list (or a queue) can maintain the order of page accesses. When a page needs to be replaced, the algorithm can update the linked list to reflect the most recent access pattern.
+
+**8. What is the optimal page replacement algorithm, and why is it not practical to implement?**
+
+**Answer:** The **optimal page replacement algorithm** replaces the page that will not be used for the longest period of time in the future. It provides the lowest possible page fault rate. However, it is **impractical to implement** because it requires knowledge of future page accesses, which is not available in real-time operating systems. Optimal page replacement is often used as a benchmark to compare the performance of other page replacement algorithms.

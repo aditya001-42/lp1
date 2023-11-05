@@ -1,0 +1,106 @@
+aditya@ubuntu:~$ javac FIFO.java
+aditya@ubuntu:~$ java FIFO
+Enter capacity of page frame: 3
+Enter number of page sequence: 10
+Enter values (space separated): 1 2 3 4 2 7 8 4 5 5
+Frames: 1 
+Frames: 1 2 
+Frames: 1 2 3 
+Frames: 2 3 4 
+Frames: 2 3 4 
+Frames: 3 4 7 
+Frames: 4 7 8 
+Frames: 4 7 8 
+Frames: 7 8 5 
+Frames: 7 8 5 
+Page Faults: 7
+
+Sure, here's an explanation of the given Java code for the FIFO Page Replacement Algorithm:
+
+Initialization:
+
+The program starts by initializing a Scanner object to take input from the user.
+Arrays pages[], waiting_time[], tat[], and process[] are used to store the input page sequence, waiting time, turnaround time, and process number respectively.
+User Input:
+
+The program prompts the user to enter the number of processes and the burst time for each process.
+The burst times and process numbers are stored in the burst_time[] and process[] arrays.
+Sorting:
+
+The program sorts the processes based on their burst times in ascending order. This step is essential for calculating waiting times and turnaround times accurately.
+Calculating Waiting Time and Turnaround Time:
+
+The program then calculates waiting times and turnaround times for each process based on the sorted burst times.
+The waiting time for the first process is set to 0. For subsequent processes, the waiting time is the sum of the burst times of all previous processes.
+Turnaround time is calculated by adding the burst time and waiting time for each process.
+Displaying Output:
+
+After calculating waiting times and turnaround times, the program displays the process number, burst time, waiting time, and turnaround time for each process.
+Additionally, the program calculates and displays the average waiting time and average turnaround time.
+
+
+
+Certainly! Let's consider a scenario with a page reference string and a page frame capacity of 3. The page reference string represents the order in which pages are accessed by a process.
+
+**Page Reference String:** 1, 2, 3, 4, 2, 1, 5, 6, 2, 1
+
+**Page Frame Capacity:** 3
+
+Now, let's simulate the FIFO page replacement algorithm using the given page reference string and page frame capacity:
+
+1. **Initial State (Page Frames: -):** No pages are in memory.
+
+2. **Page 1 (Page Frames: 1, -, -):** Page 1 is accessed and loaded into the first page frame.
+
+3. **Page 2 (Page Frames: 1, 2, -):** Page 2 is accessed and loaded into the second page frame.
+
+4. **Page 3 (Page Frames: 1, 2, 3):** Page 3 is accessed and loaded into the third page frame.
+
+5. **Page 4 (Page Frames: 2, 3, 4):** Page 4 is accessed. Since all page frames are occupied, a page needs to be replaced. The oldest page (Page 1) is replaced with Page 4.
+
+6. **Page 2 (Page Frames: 2, 3, 4):** Page 2 is accessed again. It is already in memory, so no page fault occurs.
+
+7. **Page 1 (Page Frames: 2, 3, 4):** Page 1 is accessed. It is not in memory (was replaced earlier), so a page fault occurs. Page 2 remains in memory.
+
+8. **Page 5 (Page Frames: 3, 4, 5):** Page 5 is accessed. Page 3 (the oldest page) is replaced with Page 5.
+
+9. **Page 6 (Page Frames: 4, 5, 6):** Page 6 is accessed. Page 4 (the oldest page) is replaced with Page 6.
+
+10. **Page 2 (Page Frames: 5, 6, 2):** Page 2 is accessed. Page 5 (the oldest page) is replaced with Page 2.
+
+11. **Page 1 (Page Frames: 6, 2, 1):** Page 1 is accessed. Page 6 (the oldest page) is replaced with Page 1.
+
+In this example, the FIFO page replacement algorithm processes the page reference string with a page frame capacity of 3. The total number of page faults in this scenario is 6.
+
+
+Certainly! Here are some theoretical questions related to the FIFO Page Replacement Algorithm, along with their answers:
+
+**Q1: What is the FIFO Page Replacement Algorithm?**
+
+**Answer:** FIFO stands for First-In-First-Out. It is the simplest page replacement algorithm where the operating system keeps track of all pages in the memory in a queue, and the oldest page, i.e., the one that was brought into memory first, is the one selected for removal when a page needs to be replaced.
+
+**Q2: How does the FIFO algorithm work?**
+
+**Answer:** In the FIFO algorithm, when a page needs to be replaced:
+- If the page is not in the memory, it is loaded into an available page frame.
+- If the page is already in the memory, no action is taken.
+- When a new page needs to be loaded and all page frames are occupied, the page that has been in memory the longest (the oldest page) is replaced with the new page.
+
+**Q3: What is a page fault in the context of the FIFO algorithm?**
+
+**Answer:** A page fault occurs in the FIFO algorithm when a page that is not currently in memory needs to be accessed. This triggers the replacement of an existing page from memory to make room for the new page. Page faults indicate that the memory management system needs to retrieve a page from secondary storage, which can significantly impact system performance.
+
+**Q4: What is the main advantage of the FIFO Page Replacement Algorithm?**
+
+**Answer:** The main advantage of the FIFO algorithm is its simplicity. It is easy to implement and requires minimal bookkeeping. It operates on a "first come, first served" basis, making it straightforward to understand and manage.
+
+**Q5: What is the main disadvantage of the FIFO Page Replacement Algorithm?**
+
+**Answer:** The primary disadvantage of the FIFO algorithm is the lack of consideration for page access frequency. It suffers from the "Belady's Anomaly," where increasing the number of page frames can lead to an increase in page faults. This anomaly occurs because the algorithm does not consider the usefulness of the pages; it merely replaces the oldest page, which might still be useful in some cases.
+
+**Q6: Explain the concept of Belady's Anomaly in the context of the FIFO algorithm.**
+
+**Answer:** Belady's Anomaly refers to a situation in the FIFO Page Replacement Algorithm where increasing the number of page frames can unexpectedly lead to an increase in the number of page faults. This contradicts the common intuition that providing more memory (page frames) should reduce the number of page faults. FIFO does not always follow this pattern because the algorithm's behavior is solely based on the order of page arrivals, without considering the frequency of page accesses. Adding more page frames might result in older pages being retained in memory for a more extended period, causing newer pages to be pushed out earlier, thus increasing the overall page faults.
+
+These answers provide a basic understanding of the FIFO Page Replacement Algorithm and its characteristics. It's essential to elaborate on these points further during examination based on the level of detail required.
+
